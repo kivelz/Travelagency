@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FourSTA" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="FourSTAContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PackageDetailsDAOs" EntityType="FourSTA.PackageDetailsDAO" />
+    <EntitySet Name="Packages" EntityType="FourSTA.Package" />
+    <EntitySet Name="TourLeaders" EntityType="FourSTA.TourLeader" />
+    <AssociationSet Name="PackageDetailsDAOPackage" Association="FourSTA.PackageDetailsDAOPackage">
+      <End Role="PackageDetailsDAO" EntitySet="PackageDetailsDAOs" />
+      <End Role="Package" EntitySet="Packages" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PackageDetailsDAO">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PackageName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TourLeaderName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Package_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Packages" Relationship="FourSTA.PackageDetailsDAOPackage" FromRole="PackageDetailsDAO" ToRole="Package" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Package">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PackageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PackageDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Duration" Type="Int32" Nullable="false" />
+    <Property Name="PackageDetailsDAOId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TourLeader">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Rank" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="PackageDetailsDAOPackage">
+    <End Type="FourSTA.PackageDetailsDAO" Role="PackageDetailsDAO" Multiplicity="1" />
+    <End Type="FourSTA.Package" Role="Package" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PackageDetailsDAO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Package">
+        <PropertyRef Name="PackageDetailsDAOId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

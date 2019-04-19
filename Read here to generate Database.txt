@@ -1,0 +1,4 @@
+go to model > select  edmx > right click on blank area > select generate database from model > copy all the query > go sql management studio > open new query
+> pass all the query and execute
+
+fill in some data on packages and tourleaders.

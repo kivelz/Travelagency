@@ -1,0 +1,92 @@
+﻿@using FSTA.Models
+@model IEnumerable<FSTA.Models.PackageDetailsDAO>
+
+@{
+    ViewBag.Title = "Index";
+
+    var leader = (List<TourLeader>)ViewData["Lead"];
+   
+}
+<br />
+@if (TempData["Suc"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Suc"]
+    </div>
+}
+
+<div><a href="@Url.Action("AssignLeader")">Assign Tour Leader</a></div>
+<br/>
+@using (Html.BeginForm("Index", "AssignLeader", FormMethod.Get))
+{
+    <label> From</label>
+    <input type="date" name="start"/>
+    <label>To</label>
+    <input type="date" name="end"/>
+    <input type="submit" value="Search"/>
+}
+
+
+<table class="table">
+    <h1>Tour Summary</h1>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TourLeaderName)
+        </th>
+        @* <th>Duration</th> *@
+        @* <th>Cost</th> *@
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackageName)
+            </td>
+            <td>
+               @item.StartDate.ToShortDateString()
+            </td>
+            <td>
+                @item.EndDate.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TourLeaderName)
+            </td>
+            @* <td>@item.Duration</td> *@
+            @*<td>@Convert.ToInt32(@item.Duration) * @Convert.ToInt32(@item.Salary)</td>*@
+            @* <td>@(item.Duration * item.Salary)</td> *@
+        </tr>
+    }
+
+
+    <table class="table">
+        <h1>List of Tour Leaders</h1>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Rank</th>
+        </tr>
+
+        @foreach (var lead in leader)
+        {
+            <tr>
+                <td>@lead.id</td>
+                <td>@lead.Name</td>
+                <td>@lead.Email</td>
+                <td>@lead.Rank</td>
+            </tr>
+        }
+    </table>
+
+</table>

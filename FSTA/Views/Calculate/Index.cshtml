@@ -1,0 +1,57 @@
+﻿@model FSTA.Models.TourLeader
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p></p>
+
+@using (Html.BeginForm("Index", "Calculate", FormMethod.Post))
+{
+    <div class="form-control">
+        <label>ID</label>
+        <input type="number" name="id"/>
+        <label>Duration</label>
+        <input type="number" name="duration"/>
+        <input type="submit" value="calculate"/>
+    </div>
+}
+
+
+
+@{
+    if (ViewData["cost"] != null)
+    {
+
+        int id = (int)ViewData["Id"];
+        string rank = (string)ViewData["Rank"];
+        decimal cost = (decimal)ViewData["cost"];
+        string name = (string)ViewData["name"];
+        int duration = (int) ViewData["duration"];
+        string email = (string) ViewData["email"];
+        int phone = (int) ViewData["phone"];
+
+
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Employee Rank</th>
+                <th>Duration of travel</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <th>@name</th>
+                <th>@email</th>
+                <th>@phone</th>
+                <th>@rank</th>
+                <th>@duration</th>
+                <th>$@cost</th>
+            </tr>
+
+        </table>
+
+    }
+}
